@@ -1,27 +1,34 @@
 package com.anusruta.expensewon.models.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import com.anusruta.expensewon.models.enums.Currency;
+import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Getter
 @Entity
+@Table(name = "EXPENSES")
 public class Expense extends BaseModel{
     private String description;
     private Double amount;
-    private String currency;
+
+    @ManyToOne
+    private User createdBy;
+
+    @Enumerated
+    private Currency currency;
 
     @ManyToMany
-    private List<User> participants;
+    private List<User> participants = new ArrayList<>();
 
-    private Map<User, Double> paidBy;
-    private Map<User, Double> paidFor;
+    @ElementCollection
+    private Map<User, Double> paidBy = new HashMap<>();
 
-    @OneToMany
-    private Group group;
+    @ElementCollection
+    private Map<User, Double> paidFor = new HashMap<>();
 }
