@@ -1,5 +1,6 @@
 package com.anusruta.expensewon.services;
 
+import com.anusruta.expensewon.models.dtos.RegisterRequest;
 import com.anusruta.expensewon.models.entities.User;
 import com.anusruta.expensewon.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -14,9 +15,12 @@ import java.util.Optional;
 public class UserService {
 
     UserRepository repository;
+
+    BCryptEncoder encoder;
     
-    public User createUser(User user){
-        return repository.save(user);
+    public User createUser(RegisterRequest request){
+        request.setPassword(encoder.encode(request.getPassword()));
+        return repository.save(request.toUser());
     }
 
     public User getUserById(Long id) {

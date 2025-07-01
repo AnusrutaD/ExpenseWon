@@ -23,10 +23,8 @@ public class UserController {
         validate(request);
 
         System.out.println("User Request: " + request.getName());
-        return service.createUser(request.toUser()).toResponse();
+        return service.createUser(request).toResponse();
     }
-
-
 
     private void validate(RegisterRequest request) {
         if (request.getName() == null){
