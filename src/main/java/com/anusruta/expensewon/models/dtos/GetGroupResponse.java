@@ -1,6 +1,5 @@
 package com.anusruta.expensewon.models.dtos;
 
-import com.anusruta.expensewon.models.entities.User;
 import lombok.Builder;
 import lombok.Data;
 

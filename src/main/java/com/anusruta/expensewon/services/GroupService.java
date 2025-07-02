@@ -1,14 +1,12 @@
 package com.anusruta.expensewon.services;
 
 import com.anusruta.expensewon.models.dtos.CreateGroupRequest;
-import com.anusruta.expensewon.models.dtos.GetGroupResponse;
 import com.anusruta.expensewon.models.entities.Group;
 import com.anusruta.expensewon.models.entities.User;
 import com.anusruta.expensewon.repositories.GroupRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
