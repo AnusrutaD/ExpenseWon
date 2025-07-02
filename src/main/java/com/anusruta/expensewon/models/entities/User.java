@@ -22,6 +22,7 @@ public class User extends BaseModel{
 
     public GetUserResponse toResponse() {
         return GetUserResponse.builder()
+                .id(getId())
                 .name(this.name)
                 .email(this.email)
                 .phone(this.phone)

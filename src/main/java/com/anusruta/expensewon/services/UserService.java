@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Arrays;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +25,11 @@ public class UserService {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsersByIds(List<Long> ids){
+        return repository.findAllById(ids);
+    }
+
+    public List<User> getAllUsersByIds() {
         return repository.findAll();
     }
 

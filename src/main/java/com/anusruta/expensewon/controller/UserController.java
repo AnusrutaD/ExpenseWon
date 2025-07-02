@@ -51,7 +51,7 @@ public class UserController {
 
     @GetMapping
     public List<GetUserResponse> getAllUsers(){
-        return service.getAllUsers().stream().map(User::toResponse).collect(Collectors.toList());
+        return service.getAllUsersByIds().stream().map(User::toResponse).collect(Collectors.toList());
     }
 
     @DeleteMapping("/{id}")
