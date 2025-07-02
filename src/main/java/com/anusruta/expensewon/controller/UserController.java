@@ -54,7 +54,8 @@ public class UserController {
         return service.getAllUsers().stream().map(User::toResponse).collect(Collectors.toList());
     }
 
-    public GetUserResponse updateUser(RegisterRequest request){
-        return null;
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id){
+        service.deleteUser(id);
     }
 }
