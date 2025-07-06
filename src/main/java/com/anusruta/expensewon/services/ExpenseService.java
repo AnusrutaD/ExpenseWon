@@ -7,7 +7,11 @@ import com.anusruta.expensewon.models.entities.User;
 import com.anusruta.expensewon.repositories.ExpenseRepository;
 import lombok.AllArgsConstructor;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -34,5 +38,23 @@ public class ExpenseService {
 
     public List<Expense> getAllExpenses() {
         return repository.findAll();
+    }
+
+    public List<Expense> getExpensesByGroupId(Long groupId){
+        return repository.findAll().stream()
+                .filter(expense -> Objects.equals(expense.getGroup().getId(), groupId))
+                .collect(Collectors.toList());
+    }
+
+    public void settleUp(Long id) {
+        Expense expense = repository.findById(id).orElseThrow(RuntimeException::new);
+        Map<Long, Double> transactions = new HashMap<>();
+        for(Long paidForUserId: expense.getPaidFor().keySet()){
+            transactions.put(paidForUserId, transactions.getOrDefault(paidForUserId, 0.0) - expense.getPaidBy().get(paidForUserId));
+        }
+
+        for(Long paidByUserId: expense.getPaidBy().keySet()){
+            transactions.put(paidByUserId, transactions.getOrDefault(paidByUserId, 0.0) - expense.getPaidBy().get(paidByUserId));
+        }
     }
 }
